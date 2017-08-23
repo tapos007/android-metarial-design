@@ -1,17 +1,24 @@
 package com.example.tapos.cardviewtutorial.app;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.tapos.cardviewtutorial.R;
+import com.example.tapos.cardviewtutorial.app.adapter.RecycleAdapter;
+import com.example.tapos.cardviewtutorial.app.model.Landscape;
 
 public class MainActivity extends AppCompatActivity {
 
     Toolbar toolber;
+    RecyclerView recyclerView;
+    private RecycleAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +32,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUpRecycleView() {
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        adapter = new RecycleAdapter(this, Landscape.getData());
+        recyclerView.setAdapter(adapter);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
     @Override
